@@ -1,36 +1,19 @@
-name: 'WarehouseCapacity Terraform infra'
+name: 'Terraform infra'
 
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      tags:
-        description: 'Test scenario tags'
-        required: true
-        type: boolean
       environment:
         description: 'Environment to run tests against'
         type: choice
         required: true
         options:
-          - development
-          - test-env
-          - prod
+          - dev
+          - test
   
-
-
-
 jobs:
   terraform:
-    name: 'WarehouseCapacity infra'
+    name: 'infra'
     runs-on: ubuntu-latest
     environment: ${{ github.event.inputs.environment }}
     permissions:
@@ -46,12 +29,12 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-    - name: Authenticate to Google Cloud
+    - name: Authenticate to aws
       id: auth
-      uses: google-github-actions/auth@v0
+      uses: ws-actions/configure-aws-credentials@v2
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
-        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        workload_identity_provider: ${{ secrets.ACCESS_KEY }}
+        service_account: ${{ secrets.SECRET_KEY }}
         token_format: 'access_token'
         access_token_lifetime: 300s
 
@@ -61,15 +44,15 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -backend-config="bucket=${{ secrets.BACKEND_BUCKET_GCS }}" -backend-config="prefix=terraform/state/WarehouseCapacity"
-      working-directory: ./src/WarehouseCapacity/infra
+      run: terraform init 
+      working-directory: ./modules
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -var-file=${{ secrets.TF_VAR_FILE }} -input=false
-      working-directory: ./src/WarehouseCapacity/infra
+      run: terraform plan -input=false
+      working-directory: ./modules
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
-      run: terraform apply -var-file=${{ secrets.TF_VAR_FILE }} -auto-approve -input=false
-      working-directory: ./src/WarehouseCapacity/infra
+      run: terraform apply -input=false
+      working-directory: ./modules
