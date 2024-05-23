@@ -33,7 +33,7 @@ jobs:
       id: auth
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        aws-access-key-id:: ${{ secrets.ACCESS_KEY }}
+        aws-access-key-id: ${{ secrets.ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.SECRET_KEY }}
         aws-session-token: 300s
         aws-region: ap-south-1
