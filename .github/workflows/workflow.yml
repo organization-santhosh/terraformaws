@@ -33,8 +33,8 @@ jobs:
       id: auth
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        workload_identity_provider: ${{ secrets.ACCESS_KEY }}
-        service_account: ${{ secrets.SECRET_KEY }}
+        aws-access-key-id:: ${{ secrets.ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.SECRET_KEY }}
         token_format: 'access_token'
         access_token_lifetime: 300s
         aws-region: ap-south-1
