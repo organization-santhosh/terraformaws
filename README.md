@@ -72,10 +72,30 @@ GitHub Actions are configured using YAML files placed in the .github/workflows d
    Add your both aws secret access key and access key id two times
 
 2. Below is an example of a GitHub Actions workflow for deploying Terraform code, which we using in our project.
-   https://github.com/organization-santhosh/terraformaws/blob/main/.github/workflows/workflow.yml.md
-   <picture>
-   <img width="347" alt="image" src="https://github.com/organization-santhosh/terraformaws/assets/40984539/850e2ed7-d072-40ad-932e-bcaa95fea0bb">
-   </picture>
+   https://github.com/organization-santhosh/terraformaws/blob/main/.github/workflows/workflow.yml
+   ##Explanation:##
+    Workflow Name and Trigger:
+    The workflow is named "Terraform infra".
+    It uses the workflow_dispatch event to allow manual triggering with an input parameter environment, which can be either dev or test.
+    Job Definition:
+
+    The job named terraform runs on an ubuntu-latest runner.
+    The job's environment is set dynamically based on the input provided when the workflow is triggered.
+    Permissions are set to allow read access to repository contents and write access to ID tokens.
+    Defaults:
+
+    Ensures that all run steps use the Bash shell.
+    Steps:
+
+    Checkout: Uses the actions/checkout@v3 action to clone the repository to the runner.
+    Authenticate to AWS: Uses the aws-actions/configure-aws-credentials@v2 action to configure AWS credentials using secrets ACCESS_KEY and SECRET_KEY, and sets the AWS   region to ap-south-1.
+    Setup Terraform: Uses the hashicorp/setup-terraform@v1 action to install Terraform.
+    Terraform Init: Runs terraform init in the ./modules directory to initialize the Terraform configuration.
+    Terraform Plan: Runs terraform plan -input=false in the ./modules directory to generate an execution plan.
+    Terraform Apply: Runs terraform apply -auto-approve in the ./modules directory to apply the Terraform plan without interactive approval.
+    This complete workflow file allows you to manually trigger a Terraform deployment with the specified environment, configure AWS credentials, and run the necessary   Terraform commands to manage your infrastructure.
+
+
 
 
 
