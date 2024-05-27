@@ -95,6 +95,14 @@ GitHub Actions are configured using YAML files placed in the .github/workflows d
     Terraform Apply: Runs terraform apply -auto-approve in the ./modules directory to apply the Terraform plan without interactive approval.
     This complete workflow file allows you to manually trigger a Terraform deployment with the specified environment, configure AWS credentials, and run the necessary   Terraform commands to manage your infrastructure.
 
+3. After adding workflow file into .github/workflows, navigate actions and run workflow by sepcifying branch and environment
+
+***
+This `README.md` file now includes the steps to create a GitHub organization and repository, push code, configure GitHub Actions, store secrets, run the workflow, and add the workflow file to the `.github/workflows` directory. Adjust any specific details such as URLs, paths, and example values to fit your actual project setup.***
+
+
+
+
 
 
 
