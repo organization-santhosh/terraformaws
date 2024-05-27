@@ -73,7 +73,9 @@ GitHub Actions are configured using YAML files placed in the .github/workflows d
 
 2. Below is an example of a GitHub Actions workflow for deploying Terraform code, which we using in our project.
    https://github.com/organization-santhosh/terraformaws/blob/main/.github/workflows/workflow.yml.md
+   <picture>
    <img width="347" alt="image" src="https://github.com/organization-santhosh/terraformaws/assets/40984539/850e2ed7-d072-40ad-932e-bcaa95fea0bb">
+   </picture>
 
 
 
