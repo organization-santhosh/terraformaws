@@ -16,7 +16,7 @@ modules/
   variables.tf
 
 ## Creating a GitHub Organization and Repository
-
+Note - You dont need to create GITHUB ORGANISATIONS - MOVE TO CREATING REPOSITORY
 ### Step 1: Create a GitHub Organization
 
 1. **Go to GitHub**:
